@@ -1,0 +1,33 @@
+language: cpp
+
+matrix:
+  include:
+  - os: osx
+    osx_image: xcode10.1
+    env:
+      - CC=gcc-7
+      - CXX=g++-7
+    compiler: gcc
+
+addons:
+  homebrew:
+    packages:
+      - cmake
+      - gcc@7
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-7
+    - g++-7
+
+script: bash ./travis.sh
+after_failure:
+    - cat /Users/travis/build/Helco/vcpkg-test-uvw/vcpkg/buildtrees/libuv/install-x64-osx-dbg-out.log
+    - echo "\n\nERR.log\n\n"
+    - cat /Users/travis/build/Helco/vcpkg-test-uvw/vcpkg/buildtrees/libuv/install-x64-osx-dbg-err.log
+after_script:
+    - cat /Users/travis/build/Helco/vcpkg-test-uvw/vcpkg/buildtrees/libuv/install-x64-osx-dbg-out.log
+    - echo "\n\nERR.log\n\n"
+    - cat /Users/travis/build/Helco/vcpkg-test-uvw/vcpkg/buildtrees/libuv/install-x64-osx-dbg-err.log
+
